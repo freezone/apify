@@ -411,7 +411,7 @@ class CrawlerSetup {
     async _handleResult(request, response, pageFunctionResult, isError) {
         const start = process.hrtime();
         const payload = tools.createDatasetPayload(request, response, pageFunctionResult, isError);
-        const dataset = await Apify.openDataset('eur-50');
+        const dataset = await Apify.openDataset(this.input.datasetName);
         await dataset.pushData(payload);
         //await Apify.pushData(payload);
         this.pagesOutputted++;
