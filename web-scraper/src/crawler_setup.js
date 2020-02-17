@@ -411,7 +411,12 @@ class CrawlerSetup {
     async _handleResult(request, response, pageFunctionResult, isError) {
         const start = process.hrtime();
         const payload = tools.createDatasetPayload(request, response, pageFunctionResult, isError);
-        const dataset = await Apify.openDataset(this.input.datasetName);
+        var d = new Date();
+        var yISO = d.getFullYear();
+        var mISO = ('0' + (d.getMonth()+1)).slice(-2);
+        var dISO = ('0' + (d.getDate())).slice(-2);
+        dateISO = yISO + '-' + mISO + '-' + dISO;
+        const dataset = await Apify.openDataset(this.input.datasetName + '-' + dateISO);
         await dataset.pushData(payload);
         //await Apify.pushData(payload);
         this.pagesOutputted++;
